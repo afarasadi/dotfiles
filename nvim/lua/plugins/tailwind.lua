@@ -5,6 +5,23 @@ return {
       servers = {
         tailwindcss = {},
       },
+      setup = {
+        tailwindcss = function(_, opts)
+          opts.settings = {
+            tailwindCSS = {
+              classAttributes = { "style" },
+              experimental = {
+                classRegex = {
+                  "tw`([^`]*)",
+                  { "tw\\.style\\(([^)]*)\\)", "'([^']*)'" },
+                },
+              },
+            },
+          }
+
+          require("lspconfig")["tailwindcss"].setup(opts)
+        end,
+      },
     },
   },
   {
