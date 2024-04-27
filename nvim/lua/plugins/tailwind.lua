@@ -9,7 +9,7 @@ return {
         tailwindcss = function(_, opts)
           opts.settings = {
             tailwindCSS = {
-              classAttributes = { "style" },
+              classAttributes = { "style", "className", "class" },
               experimental = {
                 classRegex = {
                   "tw`([^`]*)",
