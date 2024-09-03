@@ -7,10 +7,10 @@ return {
     optional = true,
     opts = {
       formatters_by_ft = {
-        ["javascript"] = { "prettierd" },
-        ["javascriptreact"] = { "prettierd" },
-        ["typescript"] = { "prettierd" },
-        ["typescriptreact"] = { "prettierd" },
+        ["javascript"] = { "prettier" },
+        ["javascriptreact"] = { "prettier" },
+        ["typescript"] = { "prettier" },
+        ["typescriptreact"] = { "prettier" },
         ["vue"] = { "prettier" },
         ["css"] = { "prettier" },
         ["scss"] = { "prettier" },
