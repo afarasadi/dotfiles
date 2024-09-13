@@ -2,3 +2,4 @@
 alias iterm="open /Applications/iTerm.app -n"
 alias p="pnpm"
 alias s="source ~/.zshrc"
+alias v="nvim"
