@@ -86,6 +86,32 @@ return {
         },
         pickers = {
           -- Default configuration for builtin pickers goes here
+          find_files = {
+            find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+            layout_config = {
+              -- height = 0.70,
+            },
+          },
+          buffers = {
+            show_all_buffers = true,
+          },
+          -- live_grep = {
+          --   previewer = false,
+          --   theme = "dropdown",
+          -- },
+          git_status = {
+            git_icons = {
+              added = " ",
+              changed = " ",
+              copied = " ",
+              deleted = " ",
+              renamed = "➡",
+              unmerged = " ",
+              untracked = " ",
+            },
+            previewer = false,
+            theme = "dropdown",
+          },
         },
         extensions = {
           -- Your extension configuration goes here
@@ -93,18 +119,18 @@ return {
       })
 
       -- Optionally, you can set a key mapping to open Telescope
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>ff",
-        [[:lua require('telescope.builtin').find_files()<CR>]],
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>fg",
-        [[:lua require('telescope.builtin').live_grep()<CR>]],
-        { noremap = true, silent = true }
-      )
+      -- vim.api.nvim_set_keymap(
+      --   "n",
+      --   "<leader>ff",
+      --   [[:lua require('telescope.builtin').find_files()<CR>]],
+      --   { noremap = true, silent = true }
+      -- )
+      -- vim.api.nvim_set_keymap(
+      --   "n",
+      --   "<leader>fg",
+      --   [[:lua require('telescope.builtin').live_grep()<CR>]],
+      --   { noremap = true, silent = true }
+      -- )
     end,
   },
 }
