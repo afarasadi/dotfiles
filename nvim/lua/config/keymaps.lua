@@ -19,3 +19,10 @@ end)
 vim.keymap.set("n", "<C-y>", function()
   ui.nav_file(4)
 end)
+
+-- curl.nvim
+local curl = require("curl")
+curl.setup({})
+vim.keymap.set("n", "<leader>cg", function()
+  curl.open_global_tab()
+end, { desc = "Open a curl tab with gloabl scope" })
