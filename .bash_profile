@@ -15,3 +15,6 @@ for file in ~/.dotfiles/.{path,bash_prompt,exports,aliases,functions,extra}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/afarasadi/.cache/lm-studio/bin"

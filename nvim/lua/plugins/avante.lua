@@ -12,8 +12,8 @@ return {
         ---@type AvanteProvider
         ollama = {
           ["local"] = true,
-          endpoint = "127.0.0.1:8080/v1",
-          model = "llama3.2",
+          endpoint = "https://api.x.ai/v1",
+          model = "grok-beta",
           parse_curl_args = function(opts, code_opts)
             print("Debugging Parameters:", vim.inspect(opts))
             return {
@@ -21,6 +21,7 @@ return {
               headers = {
                 ["Accept"] = "application/json",
                 ["Content-Type"] = "application/json",
+                ["Authorization"] = "Bearer " .. vim.env.XAI_API_KEY,
               },
               body = {
                 model = opts.model,
@@ -32,10 +33,10 @@ return {
           end,
           parse_response_data = function(data_stream, event_state, opts)
             -- Print or log the parameters to debug
-            print("Debugging Parameters:")
-            print("data_stream:", data_stream)
-            print("event_state:", vim.inspect(event_state))
-            print("opts:", vim.inspect(opts))
+            -- print("Debugging Parameters:")
+            -- print("data_stream:", data_stream)
+            -- print("event_state:", vim.inspect(event_state))
+            -- print("opts:", vim.inspect(opts))
 
             require("avante.providers").copilot.parse_response(data_stream, event_state, opts)
           end,
