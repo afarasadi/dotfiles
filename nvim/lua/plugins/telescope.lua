@@ -24,7 +24,7 @@ return {
           vim.fn.system("choco install ripgrep")
         end
       else
-        print("ripgrep is already installed.")
+        -- print("ripgrep is already installed.")
       end
 
       -- Install fd if not installed
@@ -38,7 +38,7 @@ return {
           vim.fn.system("choco install fd")
         end
       else
-        print("fd is already installed.")
+        -- print("fd is already installed.")
       end
 
       require("telescope").setup({

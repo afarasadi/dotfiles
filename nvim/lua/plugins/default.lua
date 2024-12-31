@@ -1,7 +1,5 @@
 return {
-  {
-    "ThePrimeagen/harpoon",
-  },
+
   {
     "stevearc/conform.nvim",
     optional = true,

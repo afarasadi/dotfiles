@@ -19,7 +19,7 @@ return {
           print("Installing LazyGit...")
           vim.fn.system("brew install lazygit") -- or use the appropriate package manager
         else
-          print("LazyGit is already installed.")
+          -- print("LazyGit is already installed.")
         end
       end
 
