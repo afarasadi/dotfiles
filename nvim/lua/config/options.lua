@@ -8,5 +8,9 @@ vim.opt.winbar = "%=%m %f"
 -- https://www.reddit.com/r/neovim/comments/1ajpdrx/lazyvim_weird_live_grep_root_dir_functionality_in/
 -- always use cwd as root_dir
 vim.g.root_spec = { "cwd" }
+
+-- disable snacks animation globally
+vim.g.snacks_animate = false
+
 vim.opt.colorcolumn = "72"
 vim.cmd([[highlight ColorColumn ctermbg=lightgrey guibg=lightgrey]])
