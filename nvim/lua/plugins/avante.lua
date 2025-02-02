@@ -6,14 +6,16 @@ return {
     version = false, -- set this if you want to always pull the latest change
 
     opts = {
-      debug = true,
+      -- debug = true,
       provider = "ollama",
       vendors = {
-        ---@type AvanteProvider
+        -- @type AvanteProvider
         ollama = {
           ["local"] = true,
-          endpoint = "https://api.x.ai/v1",
-          model = "grok-beta",
+          -- endpoint = "https://api.x.ai/v1",
+          -- model = "grok-beta",
+          endpoint = "https://api.together.xyz/v1",
+          model = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
           parse_curl_args = function(opts, code_opts)
             print("Debugging Parameters:", vim.inspect(opts))
             return {
