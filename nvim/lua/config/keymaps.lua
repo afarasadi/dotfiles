@@ -23,6 +23,17 @@
 -- curl.nvim
 local curl = require("curl")
 curl.setup({})
+
 vim.keymap.set("n", "<leader>cg", function()
   curl.open_global_tab()
 end, { desc = "Open a curl tab with gloabl scope" })
+
+local neotreeCmd = require("neo-tree.command")
+-- Set the custom key mappings using vim.keymap.set
+vim.keymap.set("n", "<leader>e", function()
+  neotreeCmd.execute({ action = "focus", reveal = true })
+end, { desc = "Reveal file in NeoTree" })
+
+vim.keymap.set("n", "<leader>E", function()
+  neotreeCmd.execute({ action = "focus", reveal = false })
+end, { desc = "Focus non-revealed file in NeoTree" })
