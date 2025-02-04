@@ -33,3 +33,53 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.cmd("silent! FormatWrite")
   end,
 })
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  desc = "Resize Neo-tree if Neovim window is resized",
+  group = vim.api.nvim_create_augroup("NeoTreeResize", { clear = true }),
+  callback = function()
+    local percentage = 30 -- Set the desired percentage
+    local ratio = percentage / 100
+    local width = math.floor(vim.o.columns * ratio)
+
+    -- Adjust Neo-tree width
+    require("neo-tree.sources.manager").set_width("filesystem", width)
+  end,
+})
+
+-- -- recover from swap file for wiki files
+-- -- currently for vimwiki
+-- vim.api.nvim_create_autocmd("BufReadPre", {
+--   pattern = "*.wiki", -- You can adjust this pattern to match the file types you want
+--   callback = function()
+--     local swap_file = vim.fn.expand("%:p") .. ".swp"
+--     if vim.fn.filereadable(swap_file) == 1 then
+--       vim.cmd("recover") -- Run :recover if a swap file exists
+--     end
+--   end,
+-- })
+--
+-- -- Dynamically generate the right scratchpad path based on the current date
+--
+-- local config = require("config.config")
+-- local right_scratchpad_path = config.vimwiki_today
+-- -- Disable swap files for the right scratchpad file
+-- vim.cmd(string.format(
+--   [[
+-- augroup NoSwapFilesRight
+--   autocmd!
+--   autocmd BufRead,BufNewFile %s setlocal noswapfile
+-- augroup END
+-- ]],
+--   vim.fn.expand(right_scratchpad_path)
+-- ))
+--
+-- -- Automatically recover from swap file conflicts for the right scratchpad file
+-- vim.cmd(
+--   [[
+-- augroup AutoRecoverRight
+--   autocmd!
+--   autocmd BufReadPre %s if !empty(glob(v:progpath . ".swp")) | recover | endif
+-- augroup END
+-- ]],
+--   vim.fn.expand(right_scratchpad_path)
+-- )
