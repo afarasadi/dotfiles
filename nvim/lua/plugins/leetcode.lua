@@ -5,7 +5,8 @@ return {
     lazy = leet_arg ~= vim.fn.argv()[1],
     opts = {
       arg = leet_arg,
-      lang = "cpp",
+      -- lang = "cpp",
+      lang = "python3",
       injector = { ---@type table<lc.lang, lc.inject>
         ["cpp"] = {
           before = {
