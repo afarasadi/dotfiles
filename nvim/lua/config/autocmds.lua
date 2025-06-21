@@ -33,18 +33,19 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.cmd("silent! FormatWrite")
   end,
 })
-vim.api.nvim_create_autocmd({ "VimResized" }, {
-  desc = "Resize Neo-tree if Neovim window is resized",
-  group = vim.api.nvim_create_augroup("NeoTreeResize", { clear = true }),
-  callback = function()
-    local percentage = 30 -- Set the desired percentage
-    local ratio = percentage / 100
-    local width = math.floor(vim.o.columns * ratio)
 
-    -- Adjust Neo-tree width
-    require("neo-tree.sources.manager").set_width("filesystem", width)
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "VimResized" }, {
+--   desc = "Resize Neo-tree if Neovim window is resized",
+--   group = vim.api.nvim_create_augroup("NeoTreeResize", { clear = true }),
+--   callback = function()
+--     local percentage = 30 -- Set the desired percentage
+--     local ratio = percentage / 100
+--     local width = math.floor(vim.o.columns * ratio)
+--
+--     -- Adjust Neo-tree width
+--     require("neo-tree.sources.manager").set_width("filesystem", width)
+--   end,
+-- })
 
 -- -- recover from swap file for wiki files
 -- -- currently for vimwiki
