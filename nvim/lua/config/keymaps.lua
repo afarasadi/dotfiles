@@ -37,3 +37,6 @@ end, { desc = "Reveal file in NeoTree" })
 vim.keymap.set("n", "<leader>E", function()
   neotreeCmd.execute({ action = "focus", reveal = false })
 end, { desc = "Focus non-revealed file in NeoTree" })
+
+-- [vim] tmux-sessionizer
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
