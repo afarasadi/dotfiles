@@ -11,6 +11,7 @@ return {
         use_libuv_file_watcher = true,
       },
       window = {
+        position = "right", -- default "left"
         width = function()
           return math.floor(vim.o.columns * 0.3)
         end,
