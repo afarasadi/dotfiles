@@ -3,3 +3,16 @@ alias iterm="open /Applications/iTerm.app -n"
 alias p="pnpm"
 alias s="source ~/.zshrc"
 alias v="nvim"
+
+killport() {
+  pid=$(lsof -ti :$1)
+  if [ -n "$pid" ]; then
+    kill -9 $pid
+    echo "Killed process on port $1 (PID: $pid)"
+  else
+    echo "No process found on port $1"
+  fi
+}
+
+# clearcpuid=517 needed for fixing the android emulator cant run on intel chip
+emulator() { ~/Library/Android/sdk/emulator/emulator -avd "$@" -qemu -append "clearcpuid=517"; }
