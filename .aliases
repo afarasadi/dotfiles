@@ -1,8 +1,9 @@
 
-alias iterm="open /Applications/iTerm.app -n"
+alias alacritty="open /Applications/Alacritty.app -n"
 alias p="pnpm"
 alias s="source ~/.zshrc"
 alias v="nvim"
+alias vv="v ."
 
 killport() {
   pid=$(lsof -ti :$1)

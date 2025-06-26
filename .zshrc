@@ -18,8 +18,11 @@ fi
 export PATH="$HOME/bin:$PATH"
 
 # Load the shell dotfiles
-for file in ~/.dotfiles/.{path,zsh_prompt,exports,aliases,functions,extra}; do
+for file in ~/.dotfiles/.{path,zsh_prompt,zirc,exports,aliases,functions,extra}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
 
+
+## need to be last
+eval "$(oh-my-posh init zsh --config ./omp.json)"
