@@ -25,4 +25,4 @@ unset file
 
 
 ## need to be last
-eval "$(oh-my-posh init zsh --config ./omp.json)"
+eval "$(oh-my-posh init zsh --config $HOME/.dotfiles/omp.json)"
