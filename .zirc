@@ -9,6 +9,7 @@ bindkey '^[[B' history-substring-search-down
 
 ## plugins
 zi snippet 'https://github.com/robbyrussell/oh-my-zsh/raw/master/plugins/git/git.plugin.zsh'
+zi snippet 'https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/z/z.plugin.zsh'
 
 zi light zsh-users/zsh-autosuggestions
 zi light zsh-users/zsh-syntax-highlighting
