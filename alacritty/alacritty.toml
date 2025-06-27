@@ -65,7 +65,7 @@ color = "#222222" # Visual bell animation color.
 [window]
 # decorations = "transparent"
 decorations = "None"      # None, Fullscreen, Borderless
-opacity = 0.8
+opacity = 0.9
 startup_mode = "Windowed" # SimpleFullscreen,Fullscreen,Maximized,Windowed
 dynamic_title = true
 dynamic_padding = false
@@ -79,8 +79,9 @@ x = 2500
 y = 700
 #
 [window.padding]
-x = 10
+# x = 10
 # y = 30
+x = 0
 y = 0
 
 # Clipboard stuff
