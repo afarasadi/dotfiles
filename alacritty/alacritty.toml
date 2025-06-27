@@ -4,7 +4,7 @@
 # Colorscheme import
 general.import = [
   # "~/.config/alacritty/themes/gruvbox-material-alacritty.yml",
-  "~/.config/alacritty/themes/themes/hyper.toml",
+  "~/.config/alacritty/themes/hyper.toml",
   # "~/.your_path/colorscheme.yml"
 ]
 # or you can drop your preferred colorscheme here but it looks nicer like an import
