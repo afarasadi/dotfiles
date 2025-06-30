@@ -31,6 +31,9 @@ for file in ~/.dotfiles/.{path,zsh_prompt,zirc,exports,aliases,functions,extra};
 done
 unset file
 
+# tab completion case-insensitive
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+
 
 ## need to be last
 eval "$(oh-my-posh init zsh --config $HOME/.dotfiles/omp.json)"

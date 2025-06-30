@@ -35,19 +35,19 @@ return {
       },
     },
   },
-  {
-    "laytan/tailwind-sorter.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
-    build = "cd formatter && npm ci && npm run build",
-    config = function()
-      -- Plugin specific configuration
-      require("tailwind-sorter").setup({
-        on_save_enabled = true, -- Disables automatic sorting on save
-        on_save_pattern = { "*.html", "*.js", "*.jsx", "*.tsx", "*.twig", "*.hbs", "*.php", "*.heex", "*.astro" }, -- Specifies file patterns for manual sorting
-        node_path = "node", -- Specifies the path to the node executable
-      })
-    end,
-  },
+  -- {
+  --   "laytan/tailwind-sorter.nvim",
+  --   dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
+  --   build = "cd formatter && npm ci && npm run build",
+  --   config = function()
+  --     -- Plugin specific configuration
+  --     require("tailwind-sorter").setup({
+  --       on_save_enabled = true, -- Disables automatic sorting on save
+  --       on_save_pattern = { "*.html", "*.js", "*.jsx", "*.tsx", "*.twig", "*.hbs", "*.php", "*.heex", "*.astro" }, -- Specifies file patterns for manual sorting
+  --       node_path = "node", -- Specifies the path to the node executable
+  --     })
+  --   end,
+  -- },
   {
     "NvChad/nvim-colorizer.lua",
     opts = {
