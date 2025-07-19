@@ -2,6 +2,16 @@
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
+export PATH="/Users/afarasadi/.fvm_flutter/bin:$PATH"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+
+## [Completion] FVM
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/afarasadi/.dart-cli-completion/zsh-config.zsh ]] && . /Users/afarasadi/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
 
 # cargo
 . "$HOME/.cargo/env"

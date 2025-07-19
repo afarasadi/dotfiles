@@ -10,6 +10,10 @@ alias l='ls'
 alias la='ls -AF'
 alias ll='ls -AFhl'
 
+## Flutter FVM
+alias flutter='fvm flutter'
+alias dart='fvm dart'
+
 killport() {
   pid=$(lsof -ti :$1)
   if [ -n "$pid" ]; then
