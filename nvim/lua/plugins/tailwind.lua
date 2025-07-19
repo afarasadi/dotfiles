@@ -4,7 +4,8 @@ return {
     opts = {
       servers = {
         tailwindcss = {},
-        tsserver = {
+        -- tsserver = {
+        vtsls = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern("tsconfig.base.json")(...)
           end,
