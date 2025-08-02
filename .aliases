@@ -9,6 +9,7 @@ alias ls='ls -F'
 alias l='ls'
 alias la='ls -AF'
 alias ll='ls -AFhl'
+alias hl='rg --passthru'
 
 ## Flutter FVM
 alias flutter='fvm flutter'
