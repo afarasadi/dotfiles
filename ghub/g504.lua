@@ -186,7 +186,9 @@ function mouseMovedUp(buttonNumber)
 	if debuggingEnabled then
 		OutputLogMessage("mouseMovedUp\n")
 	end
-
+	if buttonNumber == navigationButtonNumber then
+		performMissionControlGesture()
+	end
 	if buttonNumber == gestureButtonNumber then
 		performMacroUp()
 	end
