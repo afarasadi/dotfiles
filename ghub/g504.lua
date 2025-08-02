@@ -23,11 +23,17 @@ The default settings below will be for the navigation gestures for in browsers
 ]]
 --
 
+-- g504 (left side)
+-- far 6
+-- near 4
+-- thumb 5
+
 -- The button your gestures are mapped to G1 = 1, G2 = 2 etc..
 gestureButtonNumber = 4
 
 -- The button navigation actions are mapped to G1 = 1, G2 = 2 etc..
-navigationButtonNumber = -1
+
+navigationButtonNumber = 6
 
 scrollLeftButtonNumber = 7
 scrollRightButtonNumber = 8
@@ -59,7 +65,7 @@ delay = 20
 missionControlEnabled = true
 applicationWindowsEnabled = true
 moveBetweenSpacesEnabled = true
-browserNavigationEnabled = true
+browserNavigationEnabled = false
 
 -- Toggles debugging messages
 debuggingEnabled = false
@@ -123,9 +129,6 @@ function OnEvent(event, arg, family)
 			mouseMovedUp(arg)
 			isActionHandled = true
 			isStayStill = false
-		end
-		if isStayStill then
-			performMacroStayStill(gestureButtonNumber)
 		end
 	end
 
@@ -207,10 +210,10 @@ function mouseMovedLeft(buttonNumber)
 		OutputLogMessage("mouseMovedLeft\n")
 	end
 
-	if buttonNumber == gestureButtonNumber and moveBetweenSpacesEnabled then
+	if buttonNumber == navigationButtonNumber and moveBetweenSpacesEnabled then
 		performSwipeLeftGesture()
 	end
-	if buttonNumber == navigationButtonNumber and browserNavigationEnabled then
+	if buttonNumber == gestureButtonNumber and browserNavigationEnabled then
 		performNextPageGesture()
 	end
 end
@@ -220,10 +223,10 @@ function mouseMovedRight(buttonNumber)
 		OutputLogMessage("mouseMovedRight\n")
 	end
 
-	if buttonNumber == gestureButtonNumber and moveBetweenSpacesEnabled then
+	if buttonNumber == navigationButtonNumber and moveBetweenSpacesEnabled then
 		performSwipeRightGesture()
 	end
-	if buttonNumber == navigationButtonNumber and browserNavigationEnabled then
+	if buttonNumber == gestureButtonNumber and browserNavigationEnabled then
 		performPreviousPageGesture()
 	end
 end
