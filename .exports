@@ -1,5 +1,6 @@
 [[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"
 export VOLTA_HOME="$HOME/.volta"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="/Users/afarasadi/.fvm_flutter/bin:$PATH"
