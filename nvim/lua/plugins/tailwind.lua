@@ -15,7 +15,7 @@ return {
         tailwindcss = function(_, opts)
           opts.settings = {
             tailwindCSS = {
-              classAttributes = { "style", "className", "class" },
+              classAttributes = { "style", "className", "class", "[a-zA-Z]*ClassName" },
               experimental = {
                 classRegex = {
                   "tw`([^`]*)",
