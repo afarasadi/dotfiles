@@ -98,6 +98,41 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
+if [[ -n "$npm_config_yes" ]] || [[ -n "$CI" ]] || [[ "$-" != *i* ]]; then
+  export AGENT_MODE=true
+else
+  export AGENT_MODE=false
+fi
+
+if [[ "$AGENT_MODE" == "true" ]]; then
+  # Ensure non-interactive mode
+  export DEBIAN_FRONTEND=noninteractive
+  export NONINTERACTIVE=1
+fi
+
+if [[ "$AGENT_MODE" == "true" ]]; then
+  ZSH_THEME=""  # Disable theme for agents
+fi
+
+# Later in your .zshrc - minimal prompt for agents
+if [[ "$AGENT_MODE" == "true" ]]; then
+  PROMPT='%n@%m:%~%# '
+  RPROMPT=''
+  unsetopt CORRECT
+  unsetopt CORRECT_ALL
+  setopt NO_BEEP
+  setopt NO_HIST_BEEP  
+  setopt NO_LIST_BEEP
+  
+  # Agent-friendly aliases to avoid interactive prompts
+  alias npm='npm --no-fund --no-audit'
+  alias yarn='yarn --non-interactive'
+  alias pip='pip --quiet'
+  alias git='git -c advice.detachedHead=false'
+fi
+
+.
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
