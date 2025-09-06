@@ -26,7 +26,7 @@ fi
 
 
 # Load the shell dotfiles
-for file in ~/.dotfiles/.{path,zsh_prompt,zirc,exports,aliases,functions,extra}; do
+for file in ~/.dotfiles/.{path,zsh_prompt,zirc,exports,aliases,functions,extra,zshrc.local}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
@@ -130,8 +130,6 @@ if [[ "$AGENT_MODE" == "true" ]]; then
   alias pip='pip --quiet'
   alias git='git -c advice.detachedHead=false'
 fi
-
-.
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
