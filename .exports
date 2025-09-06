@@ -9,6 +9,13 @@ export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/plat
 export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
+
+# disable nx terminal ui
+export NX_TUI=false
+
+# Maestro disable AI Notification
+export MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED=true
+
 ## [Completion] FVM
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /Users/afarasadi/.dart-cli-completion/zsh-config.zsh ]] && . /Users/afarasadi/.dart-cli-completion/zsh-config.zsh || true
