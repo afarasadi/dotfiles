@@ -3,10 +3,19 @@
 
 ## use vi key bindings
 bindkey -v
+
 # avoid the annoying backspace/delete issue
 # where backspace stops deleting characters
 # bindkey '^?' backward-delete-char
 
+
+if [ "$(uname -s)" = "Linux" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH"
