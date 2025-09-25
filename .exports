@@ -3,11 +3,15 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
-export PATH="/Users/afarasadi/.fvm_flutter/bin:$PATH"
+export PATH="$HOME/.fvm_flutter/bin:$PATH"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+
+# js heap
+export NODE_OPTIONS="--max-old-space-size=4096"
 
 
 # disable nx terminal ui
@@ -18,7 +22,7 @@ export MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED=true
 
 ## [Completion] FVM
 ## Completion scripts setup. Remove the following line to uninstall
-[[ -f /Users/afarasadi/.dart-cli-completion/zsh-config.zsh ]] && . /Users/afarasadi/.dart-cli-completion/zsh-config.zsh || true
+[[ -f $HOME/.dart-cli-completion/zsh-config.zsh ]] && . $HOME/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
 
 
