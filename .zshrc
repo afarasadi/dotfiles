@@ -35,7 +35,7 @@ fi
 
 
 # Load the shell dotfiles
-for file in ~/.dotfiles/.{path,zsh_prompt,zirc,exports,aliases,functions,extra,zshrc.local}; do
+for file in $HOME/.{path,zsh_prompt,zirc,exports,aliases,functions,extra,zshrc.local}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file

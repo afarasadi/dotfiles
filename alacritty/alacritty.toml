@@ -85,6 +85,9 @@ x = 0
 y = 0
 
 # Clipboard stuff
+[terminal]
+osc52 = "CopyPaste" # enable inbound outbound terminal
+
 [selection]
 # This string contains all characters that are used as separators for
 # "semantic words" in Alacritty.

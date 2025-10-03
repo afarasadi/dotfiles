@@ -5,7 +5,14 @@
 
 -- clipboard passthrough
 vim.opt.clipboard = "unnamedplus"
-vim.g.clipboard = "osc52"
+
+if vim.uv.os_uname().sysname == "Darwin" then
+  vim.g.clipboard = {
+    name = "macOS-clipboard",
+    copy = { ["+"] = { "pbcopy" }, ["*"] = { "pbcopy" } },
+    paste = { ["+"] = { "pbpaste" }, ["*"] = { "pbpaste" } },
+  }
+end
 
 -- Show buffer file info
 vim.opt.winbar = "%=%m %f"
