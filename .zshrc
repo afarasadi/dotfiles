@@ -144,3 +144,4 @@ esac
 # pnpm end
 
 export PATH=$PATH:$HOME/.maestro/bin
+fpath+=${ZDOTDIR:-~}/.zsh_functions

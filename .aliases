@@ -1,5 +1,4 @@
 
-alias alacritty="open /Applications/Alacritty.app -n"
 alias p="pnpm"
 alias s="source ~/.zshrc"
 alias v="nvim"
