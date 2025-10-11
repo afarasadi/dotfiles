@@ -24,6 +24,13 @@ killport() {
   fi
 }
 
+
+if [[ "$(uname)" == "Linux" ]]; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
+
+
 # clearcpuid=517 needed for fixing the android emulator cant run on intel chip
 emulator() { ~/Library/Android/sdk/emulator/emulator -avd "$@" -qemu -append "clearcpuid=517"; }
 
