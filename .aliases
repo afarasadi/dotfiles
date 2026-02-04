@@ -35,4 +35,4 @@ fi
 emulator() { ~/Library/Android/sdk/emulator/emulator -avd "$@" -qemu -append "clearcpuid=517"; }
 
 
-alias claude='TERM_PROGRAM=iTerm.app claude --dangerously-skip-permissions --mcp-config .mcp.json'
+# alias claude='TERM_PROGRAM=iTerm.app claude --dangerously-skip-permissions --mcp-config .mcp.json'
