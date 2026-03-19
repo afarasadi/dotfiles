@@ -4,6 +4,7 @@ return {
     opts = {
       servers = {
         tailwindcss = {},
+        sourcekit = {},
         -- tsserver = {
         -- vtsls = {
         --   root_dir = function(...)
@@ -33,9 +34,22 @@ return {
 
           require("lspconfig")["tailwindcss"].setup(opts)
         end,
+        sourcekit = function(_, opts)
+          local capabilities = require("blink.cmp").get_lsp_capabilities()
+          opts.capabilities = capabilities
+          opts.on_attach = function(_, bufnr)
+            local opts_keymap = { noremap = true, silent = true, buffer = bufnr }
+
+            vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts_keymap)
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts_keymap)
+          end
+
+          require("lspconfig")["sourcekit"].setup(opts)
+        end,
       },
     },
   },
+
   -- {
   --   "laytan/tailwind-sorter.nvim",
   --   dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
