@@ -21,6 +21,17 @@ return {
         ["markdown.mdx"] = { "prettier" },
         ["graphql"] = { "prettier" },
         ["handlebars"] = { "prettier" },
+
+        ["swift"] = { "swiftformat" },
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        swift = { "swiftlint" },
       },
     },
   },
