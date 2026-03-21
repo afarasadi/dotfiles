@@ -203,6 +203,7 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 
-[[on-window-detected]]
-if.app-name-regex-substring = "window*.*"
-run = "layout floating"
+# [[on-window-detected]]
+# if.window-title-regex-substring = '.*'
+# run = ['layout floating']
+
