@@ -1,4 +1,5 @@
 # install zi without modifying .zshrc (already added)
+export ZI_HOME="$HOME/.zi"
 sh -c "$(curl -fsSL get.zshell.dev)" -- -i skip
 
 # Install om-my-posh with brew
