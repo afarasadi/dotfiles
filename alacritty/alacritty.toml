@@ -69,6 +69,7 @@ opacity = 0.9
 startup_mode = "Windowed" # SimpleFullscreen,Fullscreen,Maximized,Windowed
 dynamic_title = true
 dynamic_padding = false
+option_as_alt = "Both"
 
 [window.dimensions]
 columns = 150
