@@ -3,25 +3,8 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        tailwindcss = {},
-        sourcekit = {},
-        rust_analyzer = {
+        tailwindcss = {
           settings = {
-            ["rust-analyzer"] = {
-              cargo = {
-                features = "all",
-              },
-            },
-          },
-        },
-
-        -- DO NOT use lspconfig for jdtls
-        -- jdtls = {},
-      },
-
-      setup = {
-        tailwindcss = function(_, opts)
-          opts.settings = {
             tailwindCSS = {
               classAttributes = { "style", "className", "class", "[a-zA-Z]*ClassName" },
               experimental = {
@@ -35,24 +18,30 @@ return {
                 },
               },
             },
-          }
-
-          require("lspconfig").tailwindcss.setup(opts)
-        end,
-
-        sourcekit = function(_, opts)
-          local capabilities = require("blink.cmp").get_lsp_capabilities()
-          opts.capabilities = capabilities
-
-          opts.on_attach = function(_, bufnr)
+          },
+        },
+        sourcekit = {
+          on_attach = function(_, bufnr)
             local opts_keymap = { noremap = true, silent = true, buffer = bufnr }
-
             vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts_keymap)
             vim.keymap.set("n", "K", vim.lsp.buf.hover, opts_keymap)
-          end
+          end,
+        },
+        rust_analyzer = {
+          settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                features = "all",
+              },
+              procMacro = {
+                enable = true,
+              },
+            },
+          },
+        },
 
-          require("lspconfig").sourcekit.setup(opts)
-        end,
+        -- DO NOT use lspconfig for jdtls
+        -- jdtls = {},
       },
     },
   },
