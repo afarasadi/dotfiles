@@ -146,3 +146,6 @@ esac
 export PATH=$PATH:$HOME/.maestro/bin
 export PATH=$PATH:$HOME/.mint/bin
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+# bun completions
+[ -s "/Users/afarasadi/.bun/_bun" ] && source "/Users/afarasadi/.bun/_bun"

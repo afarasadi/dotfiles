@@ -20,6 +20,8 @@ fi
 git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 
 ln -s "$HOME/.dotfiles/nvim" "$HOME/.config/nvim"
+ln -sf "$HOME/.dotfiles/kitty" "$HOME/.config/kitty"
+ln -sf "$HOME/.dotfiles/.wezterm.lua" "$HOME/.wezterm.lua"
 
 # symlink .files
 chmod +x "$HOME/.dotfiles/symlink-files.sh"
