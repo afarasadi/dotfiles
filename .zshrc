@@ -40,9 +40,6 @@ for file in $HOME/.{path,zsh_prompt,zirc,exports,aliases,functions,extra,zshrc.l
 done
 unset file
 
-# tab completion case-insensitive
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
-
 # --- History Settings ---
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=100000
@@ -68,12 +65,6 @@ setopt EXTENDED_GLOB             # Use **/*.js and other advanced globs
 setopt NO_FLOW_CONTROL           # Disable Ctrl-S/Ctrl-Q freeze
 setopt INTERACTIVE_COMMENTS      # Allow # in interactive commands
 
-# --- Completion & Suggestions ---
-autoload -Uz compinit && compinit
-zstyle ':completion:*' menu select
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Enable command correction (zsh will suggest correct command)
 setopt CORRECT

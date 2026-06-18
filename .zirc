@@ -1,3 +1,5 @@
+# vim: ft=zsh
+
 source "$HOME/.zi/bin/zi.zsh"
 
 autoload -Uz compinit && compinit
@@ -5,6 +7,10 @@ autoload -Uz compinit && compinit
 if [[ -r "${XDG_CONFIG_HOME:-${HOME}/.config}/zi/init.zsh" ]]; then
   source "${XDG_CONFIG_HOME:-${HOME}/.config}/zi/init.zsh" && zzinit
 fi
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 ## plugins
 zi snippet 'https://github.com/robbyrussell/oh-my-zsh/raw/master/plugins/git/git.plugin.zsh'
@@ -14,6 +20,12 @@ zi light zsh-users/zsh-autosuggestions
 zi light zsh-users/zsh-syntax-highlighting
 zi light zsh-users/zsh-history-substring-search
 zi light zsh-users/zsh-completions
+zi light Aloxaf/fzf-tab
+
+zstyle ':completion:*' matcher-list \
+    'm:{a-z}={A-Za-z}' \
+    'r:|=*' \
+    'l:|=*'
 
 ## keymap
 
@@ -24,5 +36,3 @@ if [[ "$(uname -s)" == "Linux" ]]; then
   bindkey '^[OA' history-substring-search-up
   bindkey '^[OB' history-substring-search-down
 fi
-
-

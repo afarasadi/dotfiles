@@ -31,6 +31,10 @@ return {
       global_keymaps = true,
       global_keymaps_prefix = "<leader>n",
       kulala_keymaps_prefix = "",
+
+      ui = {
+        split_direction = "horizontal",
+      },
     },
   },
 }
