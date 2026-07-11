@@ -27,6 +27,10 @@ return {
     },
     ft = { "http", "rest" },
     opts = {
+      kulala_core = {
+        timeout = 600000,
+      },
+
       -- your configuration comes here
       global_keymaps = true,
       global_keymaps_prefix = "<leader>n",
