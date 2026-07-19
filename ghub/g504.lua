@@ -21,307 +21,194 @@ The default settings below will be for the navigation gestures for in browsers
  - Left 	next page 		(Command+Right-Bracket)
  - Right 	previous page 	(Command+Left-Bracket)
 ]]
---
 
 -- g504 (left side)
--- far 6
--- near 4
--- thumb 5
+-- far 6  |  near 4  |  thumb 5
 
--- The button your gestures are mapped to G1 = 1, G2 = 2 etc..
-gestureButtonNumber = 4
+-- Button mapping
+GESTURE_BUTTON = 6
+NAVIGATION_BUTTON = 4
+SCROLL_LEFT_BUTTON = 7
+SCROLL_RIGHT_BUTTON = 8
 
--- The button navigation actions are mapped to G1 = 1, G2 = 2 etc..
+-- Gesture sensitivity (pixels)
+MIN_MOVE = 100
 
-navigationButtonNumber = 6
+-- Auto-dispatch delay (ms): when held, direction is detected after this delay
+AUTO_DISPATCH_DELAY = 150
 
-scrollLeftButtonNumber = 7
-scrollRightButtonNumber = 8
+-- Macro names
+MACRO_UP = "macroup"
+MACRO_DOWN = "macrodown"
+MACRO_LEFT = "macroleft"
+MACRO_RIGHT = "macroright"
+MACRO_STAY_5 = "macrokey5"
+MACRO_STAY_4 = "macrokey4"
 
--- The minimal horizontal/vertical distance your mouse needs to be moved for the gesture to recognize in pixels
-minMove = 100
-minimalHorizontalMovement = minMove
-minimalVerticalMovement = minMove
+-- Key press delay (ms)
+KEY_DELAY = 20
 
--- auto dispatch within this delay
-autoDispatchDelay = 150
+-- Feature toggles
+MISSION_CONTROL_ENABLED = true
+APPLICATION_WINDOWS_ENABLED = true
+MOVE_BETWEEN_SPACES_ENABLED = true
+BROWSER_NAVIGATION_ENABLED = false
 
--- macroname
-nameMacroUp = "macroup"
-nameMacroDown = "macrodown"
-nameMacroStayStill5 = "macrokey5"
-nameMacroStayStill4 = "macrokey4"
+DEBUG_ENABLED = true
 
--- Default values for
-horizontalStartingPosistion = 0
-verticalStartingPosistion = 0
-horizontalEndingPosistion = 0
-verticalEndingPosistion = 0
+-- State
+local startX = 0
+local startY = 0
+local actionHandled = false
 
--- Delay between keypresses in millies
-delay = 20
-
--- Here you can enable/disable features of the script
-missionControlEnabled = true
-applicationWindowsEnabled = true
-moveBetweenSpacesEnabled = true
-browserNavigationEnabled = false
-
--- Toggles debugging messages
-debuggingEnabled = false
-
--- Event detection
 function OnEvent(event, arg, family)
-	isActionHandled = true
-	if debuggingEnabled then
-		OutputLogMessage("\nEvent: " .. event .. " for button: " .. arg .. "\n")
-	end
+	debugLog("Event: " .. event .. " for button: " .. arg)
 
-	--
-	if event == "MOUSE_BUTTON_PRESSED" and (arg == scrollLeftButtonNumber) then
-		performPreviousPageGesture()
-	end
-	if event == "MOUSE_BUTTON_PRESSED" and (arg == scrollRightButtonNumber) then
-		performNextPageGesture()
-	end
-
-	if event == "MOUSE_BUTTON_PRESSED" and (arg == gestureButtonNumber or arg == navigationButtonNumber) then
-		-- if debuggingEnabled then OutputLogMessage("\nEvent: " .. event .. " for button: " .. arg .. "\n") end
-		isActionHandled = false
-		-- Get stating mouse posistion
-		horizontalStartingPosistion, verticalStartingPosistion = GetMousePosition()
-		if debuggingEnabled then
-			OutputLogMessage("Horizontal starting posistion: " .. horizontalStartingPosistion .. "\n")
-			OutputLogMessage("Vertical starting posistion: " .. verticalStartingPosistion .. "\n")
+	if event == "MOUSE_BUTTON_PRESSED" and arg == SCROLL_LEFT_BUTTON then
+		scrollLeftClickAction()
+	elseif event == "MOUSE_BUTTON_PRESSED" and arg == SCROLL_RIGHT_BUTTON then
+		scrollRightClickAction()
+	elseif event == "MOUSE_BUTTON_PRESSED" and (arg == GESTURE_BUTTON or arg == NAVIGATION_BUTTON) then
+		actionHandled = false
+		startX, startY = GetMousePosition()
+		debugLog("Start: " .. startX .. ", " .. startY)
+		Sleep(AUTO_DISPATCH_DELAY)
+		local endX, endY = GetMousePosition()
+		debugLog("Auto-dispatch end: " .. endX .. ", " .. endY)
+		local direction = resolveDirection(startX, startY, endX, endY)
+		if direction then
+			fireAction(direction, arg)
+			actionHandled = true
 		end
-
-		Sleep(autoDispatchDelay)
-		-- Get stating mouse posistion
-		horizontalEndingPosistion, verticalEndingPosistion = GetMousePosition()
-
-		if debuggingEnabled then
-			OutputLogMessage("Horizontal ending posistion: " .. horizontalEndingPosistion .. "\n")
-			OutputLogMessage("Vertical ending posistion: " .. verticalEndingPosistion .. "\n")
-		end
-
-		-- Calculate differences between start and end posistions
-		horizontalDifference = horizontalStartingPosistion - horizontalEndingPosistion
-		verticalDifference = verticalStartingPosistion - verticalEndingPosistion
-
-		-- Determine the direction of the mouse and if the mouse moved far enough
-		isStayStill = true
-		if horizontalDifference > minimalHorizontalMovement then
-			mouseMovedRight(arg)
-			isActionHandled = true
-			isStayStill = false
-		end
-		if horizontalDifference < -minimalHorizontalMovement then
-			mouseMovedLeft(arg)
-			isActionHandled = true
-			isStayStill = false
-		end
-		if verticalDifference > minimalVerticalMovement then
-			mouseMovedDown(arg)
-			isActionHandled = true
-			isStayStill = false
-		end
-		if verticalDifference < -minimalVerticalMovement then
-			mouseMovedUp(arg)
-			isActionHandled = true
-			isStayStill = false
-		end
-	end
-
-	if
+	elseif
 		event == "MOUSE_BUTTON_RELEASED"
-		and (arg == gestureButtonNumber or arg == navigationButtonNumber)
-		and not isActionHandled
+		and (arg == GESTURE_BUTTON or arg == NAVIGATION_BUTTON)
+		and not actionHandled
 	then
-		if debuggingEnabled then
-			OutputLogMessage("\nEvent: " .. event .. " for button: " .. arg .. "\n")
+		local endX, endY = GetMousePosition()
+		debugLog("Release end: " .. endX .. ", " .. endY)
+		local direction = resolveDirection(startX, startY, endX, endY)
+		if direction then
+			fireAction(direction, arg)
+		else
+			performStayStill(arg)
 		end
-		-- Get stating mouse posistion
-		horizontalEndingPosistion, verticalEndingPosistion = GetMousePosition()
+		actionHandled = true
+	end
+end
 
-		if debuggingEnabled then
-			OutputLogMessage("Horizontal ending posistion: " .. horizontalEndingPosistion .. "\n")
-			OutputLogMessage("Vertical ending posistion: " .. verticalEndingPosistion .. "\n")
+function resolveDirection(sX, sY, eX, eY)
+	local dx = sX - eX
+	local dy = sY - eY
+	local adx = math.abs(dx)
+	local ady = math.abs(dy)
+
+	if adx < MIN_MOVE and ady < MIN_MOVE then
+		return nil
+	end
+
+	if adx > ady then
+		if dx > 0 then
+			return "right"
+		else
+			return "left"
 		end
-
-		-- Calculate differences between start and end posistions
-		horizontalDifference = horizontalStartingPosistion - horizontalEndingPosistion
-		verticalDifference = verticalStartingPosistion - verticalEndingPosistion
-
-		-- Determine the direction of the mouse and if the mouse moved far enough
-		isStayStill = true
-		if horizontalDifference > minimalHorizontalMovement then
-			mouseMovedRight(arg)
-			isActionHandled = true
-			isStayStill = false
+	else
+		if dy > 0 then
+			return "down"
+		else
+			return "up"
 		end
-		if horizontalDifference < -minimalHorizontalMovement then
-			mouseMovedLeft(arg)
-			isActionHandled = true
-			isStayStill = false
+	end
+end
+
+function fireAction(direction, button)
+	debugLog("Action: " .. direction .. " (button " .. button .. ")")
+	if direction == "up" then
+		if button == NAVIGATION_BUTTON then
+			performMissionControl()
+		elseif button == GESTURE_BUTTON then
+			PlayMacro(MACRO_UP)
 		end
-		if verticalDifference > minimalVerticalMovement then
-			mouseMovedDown(arg)
-			isActionHandled = true
-			isStayStill = false
+	elseif direction == "down" then
+		if button == NAVIGATION_BUTTON and APPLICATION_WINDOWS_ENABLED then
+			performApplicationWindows()
+		elseif button == GESTURE_BUTTON then
+			PlayMacro(MACRO_DOWN)
 		end
-		if verticalDifference < -minimalVerticalMovement then
-			mouseMovedUp(arg)
-			isActionHandled = true
-			isStayStill = false
+	elseif direction == "left" then
+		if button == NAVIGATION_BUTTON and MOVE_BETWEEN_SPACES_ENABLED then
+			performSwipeLeft()
+		elseif button == GESTURE_BUTTON then
+			PlayMacro(MACRO_LEFT)
 		end
-		if isStayStill then
-			performMacroStayStill(gestureButtonNumber)
+	elseif direction == "right" then
+		if button == NAVIGATION_BUTTON and MOVE_BETWEEN_SPACES_ENABLED then
+			performSwipeRight()
+		elseif button == GESTURE_BUTTON then
+			PlayMacro(MACRO_RIGHT)
 		end
-		-- Get ending mouse posistion
 	end
 end
 
--- Mouese Moved
-function mouseMovedUp(buttonNumber)
-	if debuggingEnabled then
-		OutputLogMessage("mouseMovedUp\n")
-	end
-	if buttonNumber == navigationButtonNumber then
-		performMissionControlGesture()
-	end
-	if buttonNumber == gestureButtonNumber then
-		performMacroUp()
+function performStayStill(button)
+	debugLog("Stay still (button " .. button .. ")")
+	if button == GESTURE_BUTTON then
+		performMissionControl()
+	elseif button == NAVIGATION_BUTTON then
+		PlayMacro(MACRO_STAY_4)
 	end
 end
 
-function mouseMovedDown(buttonNumber)
-	if debuggingEnabled then
-		OutputLogMessage("mouseMovedDown\n")
-	end
+-- Gesture actions
+function performMissionControl()
+	pressKeys("lctrl", "up")
+end
 
-	if buttonNumber == navigationButtonNumber and applicationWindowsEnabled then
-		performApplicationWindowsGesture()
+function performApplicationWindows()
+	pressKeys("lctrl", "down")
+end
+
+function performSwipeLeft()
+	pressKeys("lctrl", "right")
+end
+
+function performSwipeRight()
+	pressKeys("lctrl", "left")
+end
+
+-- Scroll click actions
+function scrollLeftClickAction()
+	pressKeys("lctrl", "lshift", "tab")
+end
+
+function scrollRightClickAction()
+	pressKeys("lctrl", "tab")
+end
+
+-- Browser navigation
+function performNextPage()
+	pressKeys("lgui", "rbracket")
+end
+
+function performPreviousPage()
+	pressKeys("lgui", "lbracket")
+end
+
+-- Utility
+function pressKeys(...)
+	local keys = { ... }
+	for _, key in ipairs(keys) do
+		PressKey(key)
+		Sleep(KEY_DELAY)
 	end
-	if buttonNumber == gestureButtonNumber then
-		performMacroDown()
+	for _, key in ipairs(keys) do
+		ReleaseKey(key)
 	end
 end
 
-function mouseMovedLeft(buttonNumber)
-	if debuggingEnabled then
-		OutputLogMessage("mouseMovedLeft\n")
+function debugLog(msg)
+	if DEBUG_ENABLED then
+		OutputLogMessage(msg .. "\n")
 	end
-
-	if buttonNumber == navigationButtonNumber and moveBetweenSpacesEnabled then
-		performSwipeLeftGesture()
-	end
-	if buttonNumber == gestureButtonNumber and browserNavigationEnabled then
-		performNextPageGesture()
-	end
-end
-
-function mouseMovedRight(buttonNumber)
-	if debuggingEnabled then
-		OutputLogMessage("mouseMovedRight\n")
-	end
-
-	if buttonNumber == navigationButtonNumber and moveBetweenSpacesEnabled then
-		performSwipeRightGesture()
-	end
-	if buttonNumber == gestureButtonNumber and browserNavigationEnabled then
-		performPreviousPageGesture()
-	end
-end
-
--- Gesture Functions
-function performMissionControlGesture()
-	if debuggingEnabled then
-		OutputLogMessage("performMissionControlGesture\n")
-	end
-	firstKey = "lctrl"
-	secondKey = "up"
-	pressTwoKeys(firstKey, secondKey)
-end
-
-function performApplicationWindowsGesture()
-	if debuggingEnabled then
-		OutputLogMessage("performApplicationWindowsGesture\n")
-	end
-	firstKey = "lctrl"
-	secondKey = "down"
-	pressTwoKeys(firstKey, secondKey)
-end
-
-function performSwipeLeftGesture()
-	if debuggingEnabled then
-		OutputLogMessage("performSwipeLeftGesture\n")
-	end
-	firstKey = "lctrl"
-	secondKey = "right"
-	pressTwoKeys(firstKey, secondKey)
-end
-
-function performSwipeRightGesture()
-	if debuggingEnabled then
-		OutputLogMessage("performSwipeRightGesture\n")
-	end
-	firstKey = "lctrl"
-	secondKey = "left"
-	pressTwoKeys(firstKey, secondKey)
-end
-
--- Browser Navigation Functions
-function performNextPageGesture()
-	if debuggingEnabled then
-		OutputLogMessage("performNextPageGesture\n")
-	end
-	firstKey = "lgui"
-	secondKey = "rbracket"
-	pressTwoKeys(firstKey, secondKey)
-end
-
-function performPreviousPageGesture()
-	if debuggingEnabled then
-		OutputLogMessage("performPreviousPageGesture\n")
-	end
-	firstKey = "lgui"
-	secondKey = "lbracket"
-	pressTwoKeys(firstKey, secondKey)
-end
-
-function performMacroUp()
-	if debuggingEnabled then
-		OutputLogMessage("performMacroUp")
-	end
-	PlayMacro(nameMacroUp)
-end
-function performMacroDown()
-	if debuggingEnabled then
-		OutputLogMessage("performMacroDown")
-	end
-	PlayMacro(nameMacroDown)
-end
-
-function performMacroStayStill(symbol)
-	if debuggingEnabled then
-		OutputLogMessage("performMacroStayStill " .. tostring(symbol) .. "\n")
-	end
-
-	if symbol == gestureButtonNumber then
-		-- PlayMacro(nameMacroStayStill5)
-		performMissionControlGesture()
-	end
-	if symbol == navigationButtonNumber then
-		PlayMacro(nameMacroStayStill4)
-	end
-end
-
--- Helper Functions
-function pressTwoKeys(firstKey, secondKey)
-	PressKey(firstKey)
-	Sleep(delay)
-	PressKey(secondKey)
-	Sleep(delay)
-	ReleaseKey(firstKey)
-	ReleaseKey(secondKey)
 end
