@@ -10,7 +10,9 @@ bindkey -v
 
 
 if [ "$(uname -s)" = "Linux" ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  if command -v brew >/dev/null 2>&1; then
+    eval "$(brew shellenv)"
+  fi
 fi
 
 if command -v pyenv >/dev/null 2>&1; then
