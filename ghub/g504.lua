@@ -38,8 +38,8 @@ MIN_MOVE = 100
 AUTO_DISPATCH_DELAY = 150
 
 -- Macro names
-MACRO_UP = "macroup"
-MACRO_DOWN = "macrodown"
+MACRO_UP = "macroup" -- CMD R (refresh)
+MACRO_DOWN = "macrodown" -- CMD W (close)
 MACRO_LEFT = "macroleft"
 MACRO_RIGHT = "macroright"
 MACRO_STAY_5 = "macrokey5"

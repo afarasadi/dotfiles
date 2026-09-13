@@ -5,10 +5,14 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.fvm_flutter/bin:$PATH"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+export ANDROID_NDK_HOME="$HOME/Library/Android/sdk/ndk/29.0.14206865"
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 export GTK_THEME=Adwaita-dark
 
 
