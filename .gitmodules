@@ -1,0 +1,4 @@
+[submodule "opencode/skills/material-3-skill"]
+	path = opencode/skills/material-3-skill
+	url = git@github.com:hamen/material-3-skill.git
+	branch = master

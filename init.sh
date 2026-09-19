@@ -87,6 +87,7 @@ install_oh_my_posh() {
   fi
 
   log "Installing Oh My Posh"
+
   if [ "$(uname -s)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
     brew install jandedobbeleer/oh-my-posh/oh-my-posh
   else
@@ -94,6 +95,7 @@ install_oh_my_posh() {
   fi
 
   hash -r
+
   command -v oh-my-posh >/dev/null 2>&1 ||
     [ -x "$HOME/.local/bin/oh-my-posh" ] ||
     fail "Oh My Posh was installed but is not available on PATH"
@@ -101,6 +103,7 @@ install_oh_my_posh() {
 
 install_zi() {
   export ZI_HOME="$HOME/.zi"
+
   log "Installing or updating z-shell/zi"
   sh -c "$(curl -fsSL https://get.zshell.dev)" -- -i skip
 }
@@ -109,6 +112,7 @@ install_tpm() {
   local tpm_dir="$HOME/.tmux/plugins/tpm"
 
   mkdir -p "$(dirname -- "$tpm_dir")"
+
   if [ -d "$tpm_dir/.git" ]; then
     log "TPM is already installed"
   elif [ -e "$tpm_dir" ]; then
@@ -119,14 +123,56 @@ install_tpm() {
 }
 
 link_dotfiles() {
-  mkdir -p "$HOME/.config"
-  ln -sfn "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
-  ln -sfn "$DOTFILES_DIR/kitty" "$HOME/.config/kitty"
-  ln -sfn "$DOTFILES_DIR/opencode" "$HOME/.config/opencode"
-  ln -sfn "$DOTFILES_DIR/.wezterm.lua" "$HOME/.wezterm.lua"
+  local src
+  local name
+  local dest
 
-  chmod +x "$DOTFILES_DIR/symlink-files.sh"
-  zsh "$DOTFILES_DIR/symlink-files.sh"
+  mkdir -p "$HOME/.config"
+
+  # Link every top-level entry from .dotfiles/.config into ~/.config.
+  #
+  # Example:
+  #
+  #   ~/.dotfiles/.config/nvim
+  #       -> ~/.config/nvim
+  #
+  #   ~/.dotfiles/.config/kitty
+  #       -> ~/.config/kitty
+  #
+  # Because directories themselves are symlinked, all of their contents
+  # are automatically included recursively.
+  if [ -d "$DOTFILES_DIR/.config" ]; then
+    while IFS= read -r -d '' src; do
+      name="$(basename -- "$src")"
+      dest="$HOME/.config/$name"
+
+      log "Linking $dest -> $src"
+
+      # ln -sfn does not replace an existing real directory on macOS,
+      # so explicitly remove whatever currently occupies the destination.
+      if [ -L "$dest" ]; then
+        rm -f "$dest"
+      elif [ -e "$dest" ]; then
+        rm -rf "$dest"
+      fi
+
+      ln -s "$src" "$dest"
+    done < <(
+      find "$DOTFILES_DIR/.config" \
+        -mindepth 1 \
+        -maxdepth 1 \
+        -print0
+    )
+  fi
+
+  if [ -e "$DOTFILES_DIR/.wezterm.lua" ]; then
+    ln -sfn "$DOTFILES_DIR/.wezterm.lua" "$HOME/.wezterm.lua"
+  fi
+
+  if [ -f "$DOTFILES_DIR/symlink-files.sh" ]; then
+    chmod +x "$DOTFILES_DIR/symlink-files.sh"
+    zsh "$DOTFILES_DIR/symlink-files.sh"
+  fi
 }
 
 case "$(uname -s)" in

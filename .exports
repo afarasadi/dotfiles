@@ -1,4 +1,6 @@
 [[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"
+export XDG_CONFIG_HOME="$HOME/.config"
+
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$VOLTA_HOME/bin:$PATH"

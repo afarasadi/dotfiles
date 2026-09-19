@@ -38,7 +38,14 @@ fi
 
 # Load the shell dotfiles
 for file in $HOME/.{path,zsh_prompt,zirc,exports,aliases,functions,extra,zshrc.local}; do
+  if [[ "$file" == "$HOME/.zirc" ]] && {
+    [[ -n ${DOTFILES_ZIRC_LOADED:-} ]] || (( $+functions[zi] ))
+  }; then
+    DOTFILES_ZIRC_LOADED=1
+    continue
+  fi
   [ -r "$file" ] && [ -f "$file" ] && source "$file"
+  [[ "$file" == "$HOME/.zirc" ]] && DOTFILES_ZIRC_LOADED=1
 done
 unset file
 
@@ -125,7 +132,14 @@ if [[ "$AGENT_MODE" == "true" ]]; then
 fi
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  _load_nvm() {
+    setopt localoptions noextendedglob
+    source "$NVM_DIR/nvm.sh"
+  }
+  _load_nvm
+  unfunction _load_nvm
+fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # pnpm
@@ -142,3 +156,4 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 # bun completions
 [ -s "/Users/afarasadi/.bun/_bun" ] && source "/Users/afarasadi/.bun/_bun"
+

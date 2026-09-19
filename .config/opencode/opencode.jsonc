@@ -1,0 +1,406 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["superpowers@git+https://github.com/obra/superpowers.git", "@cortexkit/opencode-magic-context@latest"],
+  "compaction": { "auto": false, "prune": false },
+  "autoupdate": false,
+  "experimental": {
+    "disable_paste_summary": false,
+    "openTelemetry": true
+  },
+  "agent": {
+    "general": {
+      "disabled": true,
+      "disable": true,
+    },
+    "scout": {
+      "disabled": true,
+      "disable": true,
+    },
+    "explore": {
+      "disabled": true,
+      "disable": true,
+    },
+  },
+  "permission": {
+    "external_directory": {
+      "~/.opencode/**": "allow",
+      "~/.cache/opencode/**": "allow",
+      "~/projects/personal/**": "allow",
+      "~/.cargo/**": "allow",
+      "~/.rustup/**": "allow",
+      "~/.gradle/**": "allow",
+      "~/.maestro/**": "allow",
+      "/var/**": "allow",
+      "/tmp/**": "allow",
+      "~/Library/Application Support/rtk/**": "allow",
+      "~/Library/Developer/Xcode/DerivedData/**": "allow"
+    },
+    "read": {
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/.env.example": "allow",
+    },
+    "edit": {
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/.env.example": "allow",
+    },
+    "bash": {
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/.env.example": "allow",
+    },
+    "grep": {
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/.env.example": "allow",
+    }
+  },
+  "provider": {
+    "openrouter-custom": {},
+
+    "tokenrouter": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "[TokenRouter]",
+      "options": {
+        "baseURL": "https://api.tokenrouter.com/v1",
+      },
+      "models": {
+        "z-ai/glm-5.3-free": {
+          "name": "glm-5.3-free",
+          "limit": {
+            "context": 362752,
+            "output": 202752
+          }
+        }
+      }
+    },
+    "nvidia-nim": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "[NVIDIA]",
+      "options": {
+        "baseURL": "https://integrate.api.nvidia.com/v1",
+      },
+      "models": {
+        "moonshotai/kimi-k3": {
+          "name": "Kimi K3",
+        },
+        "deepseek-ai/deepseek-v4-pro-0813": {
+          "name": "DS4 Pro",
+        }
+      }
+    },
+    "opencode-go-modified-2": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Opencode Go Modified 2",
+      "options": {
+        "baseURL": "https://opencode.ai/zen/go/v1",
+      },
+      "models": {
+        "hy3": {
+          "name": "Hy3 198k",
+          "limit": {
+            "context": 198000,
+            "output": 64000,
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "options": {
+            "frequency_penalty": 0.4,
+            "reasoningEffort": "high",
+            "reasoning_effort": "high",
+          },
+          "variants": {
+            "high": {
+              "thinking_config": {
+                "frequency_penalty": 0.4,
+                "reasoning_effort": "high",
+                "thinkingBudget": 32768,
+                "reasoningEffort": "high"
+              },
+              "thinkingConfig": {
+                "frequency_penalty": 0.4,
+                "reasoning_effort": "high",
+                "thinkingBudget": 32768,
+                "reasoningEffort": "high"
+              },
+            }
+          }
+        },
+        "mimo-v2.5": {
+          "name": "MiMo-V2.5 366k",
+          "limit": {
+            "context": 366144,
+            "output": 366144,
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "options": {
+            "frequency_penalty": 0.4,
+            "reasoningEffort": "high",
+            "reasoning_effort": "high",
+          },
+          "variants": {
+            "high": {
+              "thinking_config": {
+                "frequency_penalty": 0.4,
+                "reasoning_effort": "high",
+                "thinkingBudget": 32768,
+                "reasoningEffort": "high"
+              },
+              "thinkingConfig": {
+                "frequency_penalty": 0.4,
+                "reasoning_effort": "high",
+                "thinkingBudget": 32768,
+                "reasoningEffort": "high"
+              },
+            }
+          }
+        },
+        // "deepseek-v4-flash": {
+        //   "name": "deepseek-v4-flash 366k",
+        //   "limit": {
+        //     "context": 366144,
+        //     "output": 366144
+        //   },
+        //   "options": {
+        //     "reasoningEffort": "max",
+        //     "reasoning_effort": "max",
+        //   },
+        //   "variants": {
+        //     "max": {
+        //       "thinkingConfig": {
+        //         "reasoning_effort": "max",
+        //         "thinkingBudget": 32768,
+        //         "reasoningEffort": "max"
+        //       },
+        //       "thinking_config": {
+        //         "reasoning_effort": "max",
+        //         "thinkingBudget": 32768,
+        //         "reasoningEffort": "max"
+        //       },
+        //     },
+        //     "high": {
+        //       "thinkingConfig": {
+        //         "reasoning_effort": "high",
+        //         "thinking_budget": 16164,
+        //         "reasoningEffort": "high"
+        //       },
+        //       "thinking_config": {
+        //         "reasoning_effort": "high",
+        //         "thinking_budget": 16164,
+        //         "reasoningEffort": "high"
+        //       },
+        //     }
+        //   }
+        // }
+      }
+    },
+    "opencode-go-modified": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Opencode Go Modified",
+      "options": {
+        "baseURL": "https://opencode.ai/zen/go/v1",
+      },
+      "models": {
+        "hy3": {
+          "name": "Hy3 198k",
+          "limit": {
+            "context": 198000,
+            "output": 64000,
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "options": {
+            "frequency_penalty": 0.4,
+            "reasoningEffort": "high",
+            "reasoning_effort": "high",
+          },
+          "variants": {
+            "high": {
+              "thinking_config": {
+                "frequency_penalty": 0.4,
+                "reasoning_effort": "high",
+                "thinkingBudget": 32768,
+                "reasoningEffort": "high"
+              },
+              "thinkingConfig": {
+                "frequency_penalty": 0.4,
+                "reasoning_effort": "high",
+                "thinkingBudget": 32768,
+                "reasoningEffort": "high"
+              },
+            }
+          }
+        },
+        "mimo-v2.5": {
+          "name": "MiMo-V2.5 366k",
+          "limit": {
+            "context": 366144,
+            "output": 366144,
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "options": {
+            "frequency_penalty": 0.4,
+            "reasoningEffort": "high",
+            "reasoning_effort": "high",
+          },
+          "variants": {
+            "high": {
+              "thinking_config": {
+                "frequency_penalty": 0.4,
+                "reasoning_effort": "high",
+                "thinkingBudget": 32768,
+                "reasoningEffort": "high"
+              },
+              "thinkingConfig": {
+                "frequency_penalty": 0.4,
+                "reasoning_effort": "high",
+                "thinkingBudget": 32768,
+                "reasoningEffort": "high"
+              },
+            }
+          }
+        },
+        // "deepseek-v4-flash": {
+        //   "name": "deepseek-v4-flash 366k",
+        //   "limit": {
+        //     "context": 366144,
+        //     "output": 366144
+        //   },
+        //   "options": {
+        //     "reasoningEffort": "max",
+        //     "reasoning_effort": "max",
+        //   },
+        //   "variants": {
+        //     "max": {
+        //       "thinkingConfig": {
+        //         "reasoning_effort": "max",
+        //         "thinkingBudget": 32768,
+        //         "reasoningEffort": "max"
+        //       },
+        //       "thinking_config": {
+        //         "reasoning_effort": "max",
+        //         "thinkingBudget": 32768,
+        //         "reasoningEffort": "max"
+        //       },
+        //     },
+        //     "high": {
+        //       "thinkingConfig": {
+        //         "reasoning_effort": "high",
+        //         "thinking_budget": 16164,
+        //         "reasoningEffort": "high"
+        //       },
+        //       "thinking_config": {
+        //         "reasoning_effort": "high",
+        //         "thinking_budget": 16164,
+        //         "reasoningEffort": "high"
+        //       },
+        //     }
+        //   }
+        // }
+      }
+    },
+    "openference": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Openference",
+      "options": {
+        "baseURL": "https://api.openference.com/v1",
+      },
+      "models": {
+        "GLM-5.2": {
+          "name": "GLM-5.2 (via Openference)"
+        }
+      }
+    }
+  },
+  "lsp": {
+    "just": {
+      "command": [
+        "just-lsp"
+      ],
+      "extensions": [
+        "Justfile",
+        "justfile"
+      ]
+    },
+    "rust": {
+      "disabled": true,
+    },
+    "rust-analyzer": {
+      "command": [
+        "rust-analyzer"
+      ],
+      "extensions": [
+        ".rs"
+      ],
+      "initialization": {
+        "checkOnSave": {
+          "enable": false
+        }
+      }
+    },
+    // "kotlin-lsp": {
+    //   "command": [
+    //     "kotlin-lsp",
+    //     "--stdio"
+    //   ],
+    //   "extensions": [
+    //     ".kt",
+    //     ".kts"
+    //   ]
+    // }
+  },
+  "mcp": {
+    "maestro": {
+      "type": "local",
+      "command": [
+        "maestro",
+        "mcp"
+      ],
+      "enabled": false
+    }
+  },
+  "formatter": {
+    "ktfmt": {
+      "command": [
+        "ktfmt",
+        "--kotlinlang-style",
+        "$FILE"
+      ],
+      "extensions": [
+        ".kt",
+        ".kts"
+      ]
+    }
+  }
+}
